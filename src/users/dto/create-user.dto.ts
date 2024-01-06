@@ -3,14 +3,17 @@ import { UserRole } from '../entities/user.entity';
 
 export class CreateUserDto {
 
+  @IsString()
   @MinLength(3) 
   @IsNotEmpty()
   username!: string;
 
+  @IsString()
   @IsNotEmpty()
   @MinLength(8)
   password!: string;
 
+  @IsString()
   @IsNotEmpty()
   @IsEmail()
   email!: string;

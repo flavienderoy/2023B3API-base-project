@@ -1,8 +1,11 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from './users/users.module';
-import { User } from './users/entities/user.entity';
+import { Module } from '@nestjs/common'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { UsersModule } from './users/users.module'
+import { User } from './users/entities/user.entity'
+import { AuthGuard } from './users/auth/auth.guard'
+import { APP_GUARD } from '@nestjs/core'
+import { UsersService } from './users/users.service'
 
 @Module({
   imports: [
@@ -21,9 +24,12 @@ import { User } from './users/entities/user.entity';
       }),
       inject: [ConfigService],
     }),
-    UsersModule,
+    UsersModule
   ],
   controllers: [],
-  providers: [],
+  providers: [{
+    provide: APP_GUARD,
+    useClass: AuthGuard
+  }],
 })
-export class AppModule {}
+export class AppModule { }

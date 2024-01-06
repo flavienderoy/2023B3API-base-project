@@ -111,7 +111,7 @@ fonctionnalités qui necessitent une authentification.
 
 *Notes du lead-developper: Tu dois gérer une authentification par email / mot de passe. Ah et penses bien à renvoyer le
 JWT dans un objet contenant la clé `access_token` pour que le développeur front-end puisse le stocker de son côté et te
-le renvoyer dans chaque requête qui auront besoin d'une authentification pour fonctionner.*
+le renvoyer dans chaque requête qui auront besoin d'une authentification pour fonctionner.
 
 ```
 Parametres (body) :
