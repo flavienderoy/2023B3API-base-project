@@ -21,7 +21,6 @@ export class ProjectUsersController {
 
   @Get()
   async findAll(): Promise<ProjectUser[]> {
-    console.log('PU >>> findAll')
     return this.projectUsersService.getAll()
   }
 

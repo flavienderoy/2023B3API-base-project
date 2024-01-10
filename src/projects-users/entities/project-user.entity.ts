@@ -2,12 +2,14 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 't
 import { Project } from '../../projects/entities/project.entity'
 import { User } from '../../users/entities/user.entity'
 import { Exclude } from 'class-transformer'
+import { IsDate } from 'class-validator'
 
 @Entity({ name: 'project-user' })
 export class ProjectUser {
   @PrimaryGeneratedColumn('uuid')
   readonly id!: string
 
+  @IsDate()
   @Column({ nullable: false })
   startDate!: Date
 
