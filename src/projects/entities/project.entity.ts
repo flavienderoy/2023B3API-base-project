@@ -18,6 +18,7 @@ export class Project {
   @ManyToOne(() => User, {
     nullable: false,
     cascade: true,
+    eager: true
   })
   @JoinColumn({ name: 'referringEmployeeId' })
   public referringEmployee!: User
