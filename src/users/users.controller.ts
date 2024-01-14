@@ -42,18 +42,6 @@ export class UsersController {
   async getUserById(@Param("id", ParseUUIDPipe) id: string) {
     const user = await this.usersService.getUserById(id)
     if (user) return user
-    throw new NotFoundException()
+    throw new NotFoundException("The user doesn't exist.")
   }
-
-
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-  //   return this.usersService.update(+id, updateUserDto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.usersService.remove(+id);
-  // }
 }

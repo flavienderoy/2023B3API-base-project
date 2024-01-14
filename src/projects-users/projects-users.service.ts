@@ -27,10 +27,10 @@ export class ProjectUsersService {
 
   async create(dto: CreateProjectUserDto): Promise<ProjectUser> {
     const user = await this.usersService.getUserById(dto.userId)
-    if (!user) throw new NotFoundException()
+    if (!user) throw new NotFoundException("The user doesn't exist.")
     
     const project = await this.projectsService.getProjectById(dto.projectId)
-    if (!project) throw new NotFoundException()
+    if (!project) throw new NotFoundException("The project doesn't exist.")
 
 
     const dates = await this.projectsUserRepository.findBy({ userId: user.id })
