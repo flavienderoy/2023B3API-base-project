@@ -1,10 +1,10 @@
-import { forwardRef, Module } from '@nestjs/common';
-import { ProjectUsersService } from './projects-users.service';
-import { ProjectUsersController } from './projects-users.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProjectUser } from './entities/project-user.entity';
-import { UsersModule } from '../users/users.module';
-import { ProjectsModule } from '../projects/projects.module';
+import { forwardRef, Module } from '@nestjs/common'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { ProjectsModule } from '../projects/projects.module'
+import { UsersModule } from '../users/users.module'
+import { ProjectUser } from './entities/project-user.entity'
+import { ProjectUsersController } from './projects-users.controller'
+import { ProjectUsersService } from './projects-users.service'
 
 @Module({
   imports: [

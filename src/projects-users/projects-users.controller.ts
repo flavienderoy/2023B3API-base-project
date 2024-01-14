@@ -1,9 +1,9 @@
-import { Body, Controller, Get, NotFoundException, Param, ParseUUIDPipe, Post, Req, UnauthorizedException, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common'
+import { Body, Controller, Get, NotFoundException, Param, ParseUUIDPipe, Post, Req, UnauthorizedException, UseInterceptors } from '@nestjs/common'
 import { Request as ExpressRequest } from 'express'
 import { TransformInterceptor } from '../interceptor/transform.interceptor'
 import { User, UserRole } from '../users/entities/user.entity'
-import { ProjectUser } from './entities/project-user.entity'
 import { CreateProjectUserDto } from './dto/create.project-user'
+import { ProjectUser } from './entities/project-user.entity'
 import { ProjectUsersService } from './projects-users.service'
 
 @UseInterceptors(TransformInterceptor)

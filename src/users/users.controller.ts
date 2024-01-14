@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, NotFoundException, Param, ParseUUIDPipe, Post, Req, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common'
+import { Body, Controller, Get, HttpCode, NotFoundException, Param, ParseUUIDPipe, Post, Req, UseInterceptors } from '@nestjs/common'
 import { Request as ExpressRequest } from 'express'
 import { TransformInterceptor } from '../interceptor/transform.interceptor'
 import { PublicAccess } from '../public-access.decorator'

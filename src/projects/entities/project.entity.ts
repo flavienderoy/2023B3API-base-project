@@ -1,7 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
-import { User } from '../../users/entities/user.entity'
 import { Exclude } from 'class-transformer'
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { ProjectUser } from '../../projects-users/entities/project-user.entity'
+import { User } from '../../users/entities/user.entity'
 
 @Entity()
 export class Project {

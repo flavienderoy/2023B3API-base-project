@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { Project } from './entities/project.entity'
-import { CreateProjectDto } from './dto/create-project.dto'
-import { UsersService } from '../users/users.service'
 import { User, UserRole } from '../users/entities/user.entity'
+import { UsersService } from '../users/users.service'
+import { CreateProjectDto } from './dto/create-project.dto'
+import { Project } from './entities/project.entity'
 
 
 @Injectable()

@@ -1,6 +1,6 @@
+import { Type } from 'class-transformer'
 import { IsDate, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 import { EventStatus, EventType } from '../entities/event.entity'
-import { Type } from 'class-transformer'
 
 export class CreateEventDto {
 

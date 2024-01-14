@@ -1,8 +1,8 @@
+import { Exclude } from 'class-transformer'
+import { IsDate } from 'class-validator'
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Project } from '../../projects/entities/project.entity'
 import { User } from '../../users/entities/user.entity'
-import { Exclude } from 'class-transformer'
-import { IsDate } from 'class-validator'
 
 @Entity({ name: 'project-user' })
 export class ProjectUser {

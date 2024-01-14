@@ -1,11 +1,10 @@
-import { Body, Controller, ForbiddenException, Get, NotFoundException, Param, ParseUUIDPipe, Post, Req, UnauthorizedException, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common'
+import { Body, Controller, ForbiddenException, Get, NotFoundException, Param, ParseUUIDPipe, Post, Req, UnauthorizedException } from '@nestjs/common'
 import { Request as ExpressRequest } from 'express'
-import { TransformInterceptor } from '../interceptor/transform.interceptor'
+import { ProjectUsersService } from '../projects-users/projects-users.service'
 import { User, UserRole } from '../users/entities/user.entity'
 import { CreateProjectDto } from './dto/create-project.dto'
 import { Project } from './entities/project.entity'
 import { ProjectsService } from './projects.service'
-import { ProjectUsersService } from '../projects-users/projects-users.service'
 
 @Controller('projects')
 export class ProjectsController {
@@ -38,7 +37,7 @@ export class ProjectsController {
 
     if (user.role === UserRole.Employee) {
       const projectUser = await this.projectsUsersService.getProjectsByUserProject(user, project)
-      if (!projectUser) throw new ForbiddenException()
+      if (!projectUser) throw new ForbiddenException("You don't have the rights to do this.")
     }
 
     return project

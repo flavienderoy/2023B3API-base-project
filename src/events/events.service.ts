@@ -2,11 +2,10 @@ import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/co
 import { InjectRepository } from '@nestjs/typeorm'
 import * as dayjs from 'dayjs'
 import { Repository } from 'typeorm'
-import { EventStatus, EventType } from './entities/event.entity'
+import { ProjectUsersService } from '../projects-users/projects-users.service'
 import { User, UserRole } from '../users/entities/user.entity'
 import { CreateEventDto } from './dto/create-event.dto'
-import { EventEntity } from './entities/event.entity'
-import { ProjectUsersService } from '../projects-users/projects-users.service'
+import { EventEntity, EventStatus, EventType } from './entities/event.entity'
 
 
 @Injectable()
