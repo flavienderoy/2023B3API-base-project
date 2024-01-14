@@ -2,6 +2,7 @@ import { Module, ValidationPipe } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { EventEntity } from './events/entities/event.entity'
 import { EventsModule } from './events/events.module'
 import { TransformInterceptor } from './interceptor/transform.interceptor'
 import { ProjectUser } from './projects-users/entities/project-user.entity'
@@ -24,7 +25,7 @@ import { UsersModule } from './users/users.module'
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [User, Project, ProjectUser, Event],
+        entities: [User, Project, ProjectUser, EventEntity], // Add "EventEntity" to the entities array (no "Event" for Shadowing Problem with NESTJS)
         synchronize: true,
       }),
       inject: [ConfigService],

@@ -1,7 +1,7 @@
 import {
   Body,
   Controller,
-  Get, Param,
+  Get, HttpCode, Param,
   ParseUUIDPipe,
   Post,
   Req,
@@ -10,7 +10,8 @@ import {
 } from '@nestjs/common'
 import { CreateEventDto } from './dto/create-event.dto'
 import { EventService } from './events.service'
-import { Event } from './entities/event.entity'
+import { EventEntity, EventStatus } from './entities/event.entity'
+import { User } from '../users/entities/user.entity'
 
 
 @Controller('events')
@@ -21,10 +22,11 @@ export class EventsController {
   ) { }
 
   @Post()
-  async create(@Body() createEventDto: CreateEventDto, @Req() req): Promise<Event> {
-    const userId = req.user.sub
-    return this.eventService.create(createEventDto)
+  public async post(@Body() createEventDto: CreateEventDto, @Req() req: Request): Promise<EventEntity> {
+    const user = req['user'] as User
+    return this.eventService.create(createEventDto, user)
   }
+
   @Get(':id')
   async getEvent(@Param('id', ParseUUIDPipe) event: string) {
     return this.eventService.getById(event)
@@ -32,5 +34,19 @@ export class EventsController {
   @Get()
   async findAll(): Promise<CreateEventDto[]> {
     return this.eventService.findAll()
+  }
+
+  @HttpCode(201)
+  @Get('/:id/validate')
+  public async validate(@Param('id', ParseUUIDPipe) uuid: string, @Req() req: Request): Promise<EventEntity> {
+    const user = req['user'] as User
+    return this.eventService.tryUpdateStatus(user, uuid, EventStatus.Accepted)
+  }
+
+  @HttpCode(201)
+  @Get('/:id/decline')
+  public async decline(@Param('id', ParseUUIDPipe) uuid: string, @Req() req: Request): Promise<EventEntity> {
+    const user = req['user'] as User
+    return this.eventService.tryUpdateStatus(user, uuid, EventStatus.Declined)
   }
 }

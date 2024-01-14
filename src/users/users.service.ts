@@ -28,7 +28,7 @@ export class UsersService {
     const user = await this.usersRepository.findOneBy({ email: dto.email })
 
     if (!user || !(await argon2.verify(user.password, dto.password))) {
-      throw new UnauthorizedException()
+      throw new UnauthorizedException("The email and password combination is invalid.")
     }
 
     // Vous pouvez retourner l'utilisateur ou générer un jeton JWT, selon vos besoins

@@ -1,35 +1,27 @@
-import { IsDateString, IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator'
-import { PrimaryGeneratedColumn } from 'typeorm'
+import { IsDate, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 import { EventStatus, EventType } from '../entities/event.entity'
+import { Type } from 'class-transformer'
 
 export class CreateEventDto {
-  @IsString()
-  @IsUUID('4')
-  @PrimaryGeneratedColumn('uuid')
-  public id!: string
 
-  @IsString()
-  @IsNotEmpty()
-  @IsDateString()
+  @Type(() => Date)
+  @IsDate()
   public date!: Date
 
   @IsString()
   @IsNotEmpty()
   @IsOptional()
-  @IsEnum(['Pending', 'Accepted', 'Declined'])
+  @IsEnum(EventStatus)
   public eventStatus?: EventStatus
 
   @IsString()
   @IsNotEmpty()
-  @IsEnum(['RemoteWork', 'PaidLeave'])
+  @IsEnum(EventType)
   public eventType!: EventType
 
-  @IsString()
   @IsOptional()
-  public eventDescription?: string
-
   @IsString()
   @IsNotEmpty()
-  @IsUUID('4')
-  public userId!: string //au format uuidv4
+  public eventDescription?: string
+
 }

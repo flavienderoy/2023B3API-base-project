@@ -20,7 +20,7 @@ export class ProjectUser {
   projectId!: string
 
   @Exclude({ toPlainOnly: true })
-  @ManyToOne(() => Project, { nullable: false, cascade: true })
+  @ManyToOne(() => Project, { nullable: false, cascade: true, eager: true })
   @JoinColumn({ name: 'projectId' })
   project!: Project
 
@@ -28,7 +28,7 @@ export class ProjectUser {
   userId!: string
 
   @Exclude({ toPlainOnly: true })
-  @ManyToOne(() => User, { nullable: false, cascade: true })
+  @ManyToOne(() => User, { nullable: false, cascade: true, eager: true })
   @JoinColumn({ name: 'userId' })
   user!: User
 }

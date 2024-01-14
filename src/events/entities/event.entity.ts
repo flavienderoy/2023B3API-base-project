@@ -1,10 +1,20 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Exclude } from 'class-transformer'
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { User } from '../../users/entities/user.entity'
 
-export type EventStatus = 'Pending' | 'Accepted' | 'Declined'
-export type EventType = 'RemoteWork' | 'PaidLeave'
+export enum EventStatus {
+  Pending = 'Pending',
+  Accepted = 'Accepted',
+  Declined = 'Declined'
+}
+
+export enum EventType {
+  RemoteWork = 'RemoteWork',
+  PaidLeave = 'PaidLeave'
+}
 
 @Entity()
-export class Event {
+export class EventEntity { // and not Event because Event is a reserved word in JS (shadowing problem)
 
   @PrimaryGeneratedColumn('uuid')
   public readonly id!: string //au format uuidv4
@@ -12,16 +22,21 @@ export class Event {
   @Column()
   public date!: Date
 
-  @Column({ default: 'Pending', enum: ['Pending', 'Accepted', 'Declined'] })
+  @Column({ default: EventStatus.Pending, enum: EventStatus, nullable: false})
   public eventStatus?: EventStatus
 
-  @Column({enum: ['RemoteWork', 'PaidLeave']})
+  @Column({ enum: EventType, nullable: false })
   public eventType!: EventType
 
-  @Column()
+  @Column({default: null, nullable: true})
   public eventDescription?: string
 
-  @Column()
+  @Column({ nullable: false })
   public userId!: string //au format uuidv4
+
+  @Exclude({ toPlainOnly: true })
+  @ManyToOne(() => User, { nullable: false, cascade: true, eager: true })
+  @JoinColumn({ name: 'userId' })
+  user!: User
 
 }

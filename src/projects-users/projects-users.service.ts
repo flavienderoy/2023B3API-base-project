@@ -13,6 +13,8 @@ import { User } from '../users/entities/user.entity'
 import { UsersService } from '../users/users.service'
 import { CreateProjectUserDto } from './dto/create.project-user'
 import { ProjectUser } from './entities/project-user.entity'
+import * as dayjs from 'dayjs'
+import * as isBetween from 'dayjs/plugin/isBetween'
 
 @Injectable()
 export class ProjectUsersService {
@@ -54,5 +56,16 @@ export class ProjectUsersService {
 
   async getProjectsByUserProject(user: User, project: Project | null): Promise<ProjectUser | null> {
     return this.projectsUserRepository.findOneBy({ userId: user.id, projectId: project.id })
+  }
+
+  public async findByUser(user: User): Promise<ProjectUser[]> {
+    return this.projectsUserRepository.find({
+      where: { userId: user.id },
+      relations: ['project', 'user']
+    })
+  }
+
+  public async findByUserAndDay(user: User, day: Date): Promise<ProjectUser[]> {
+    return (await this.findByUser(user)).filter(m => dayjs(day).isBetween(m.startDate, m.endDate, 'day', '[]'))
   }
 }

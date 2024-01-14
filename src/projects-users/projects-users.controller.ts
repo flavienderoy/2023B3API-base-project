@@ -15,7 +15,7 @@ export class ProjectUsersController {
   async postProjectUsers(@Body() createProjectUserDto: CreateProjectUserDto, @Req() req: ExpressRequest): Promise<ProjectUser> {
     const user = req['user'] as User
     if (user.role === UserRole.Employee)
-      throw new UnauthorizedException()
+      throw new UnauthorizedException("You don't have the rights to do this.")
     return this.projectUsersService.create(createProjectUserDto)
   }
 
@@ -28,6 +28,6 @@ export class ProjectUsersController {
   async getProjectUserById(@Param("id", ParseUUIDPipe) id: string): Promise<ProjectUser> {
     const projectMember = await this.projectUsersService.getById(id)
     if (projectMember) return projectMember
-     throw new NotFoundException()
+     throw new NotFoundException("The project member doesn't exist.")
   }
 }

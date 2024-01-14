@@ -17,9 +17,9 @@ export class ProjectsService {
 
   async create(createProjectDto: CreateProjectDto): Promise<Project> {
     const user = await this.usersService.getUserById(createProjectDto.referringEmployeeId)
-    if (!user) throw new NotFoundException()
+    if (!user) throw new NotFoundException("The user doesn't exist.")
     if(user && user.role === UserRole.Employee)
-      throw new UnauthorizedException()
+      throw new UnauthorizedException("You don't have the rights to do this.")
     const newProject = this.projectsRepository.create(createProjectDto)
     return {
       ...await this.projectsRepository.save(newProject), 
